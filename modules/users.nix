@@ -12,7 +12,7 @@
       "networkmanager"
     ];
     # Add your phone/laptop SSH public keys here (used over Tailscale only).
-    openssh.authorizedKeys.keys = [ ];
+    openssh.authorizedKeys.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOmICF//KAuQ+UXOzcSyMDhSi0J+gM++JEmdXlNExTzB" ];
   };
 
   # The device itself is the sandbox; Claude gets passwordless root.
