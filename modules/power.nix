@@ -39,6 +39,7 @@
     description = "Append CPU/GPU temperatures to /var/log/temps.log";
     path = [
       pkgs.coreutils
+      pkgs.gawk
       config.hardware.nvidia.package.bin
     ];
     script = ''
