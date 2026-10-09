@@ -5,6 +5,7 @@
     ../../modules/base.nix
     ../../modules/users.nix
     ../../modules/power.nix
+    ../../modules/gpu-off.nix
     ../../modules/remote.nix
     ../../modules/claude.nix
   ];

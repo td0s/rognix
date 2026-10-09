@@ -44,7 +44,13 @@
     ];
     script = ''
       cpu=$(cat /sys/class/thermal/thermal_zone*/temp | awk '{printf "%d ", $1/1000}')
-      gpu=$(nvidia-smi --query-gpu=temperature.gpu,pstate --format=csv,noheader 2>/dev/null || echo n/a)
+      # Only query the GPU when the driver is loaded; in the gpu-off boot entry,
+      # record the slot's power state instead (D3cold = unpowered).
+      if [ -e /proc/driver/nvidia/version ]; then
+        gpu=$(nvidia-smi --query-gpu=temperature.gpu,pstate --format=csv,noheader 2>/dev/null || echo n/a)
+      else
+        gpu="off, slot $(cat /sys/bus/pci/devices/0000:00:01.0/firmware_node/real_power_state 2>/dev/null || echo n/a)"
+      fi
       echo "$(date -Is) cpu=[$cpu] gpu=[$gpu]" >> /var/log/temps.log
     '';
     serviceConfig.Type = "oneshot";
