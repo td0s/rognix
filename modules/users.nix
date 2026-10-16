@@ -10,6 +10,7 @@
       "kvm" # Android emulator acceleration
       "adbusers" # USB adb, see udev rule below
       "networkmanager"
+      "dialout" # USB serial, e.g. MicroPython boards for mpremote
     ];
     # Add your phone/laptop SSH public keys here (used over Tailscale only).
     openssh.authorizedKeys.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOmICF//KAuQ+UXOzcSyMDhSi0J+gM++JEmdXlNExTzB" ];
