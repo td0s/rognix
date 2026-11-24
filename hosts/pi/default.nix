@@ -77,6 +77,8 @@ in
   services.tailscale = {
     enable = true;
     authKeyFile = "/var/lib/tailscale-authkey";
+    # Tailscale SSH: rognix deploys over it without an SSH key of its own.
+    extraSetFlags = [ "--ssh" ];
   };
   networking.firewall.trustedInterfaces = [ "tailscale0" ];
 
