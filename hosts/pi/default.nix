@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 
 let
   # ---- Site settings ----
@@ -99,6 +99,16 @@ in
     environmentFiles = [ "/var/lib/ma-alexa/secrets.env" ];
   };
   systemd.tmpfiles.rules = [ "d /var/lib/ma-alexa/ask 0700 root root -" ];
+
+  # Wi-Fi with DHCP (the router gives the Pi a fixed lease). No networks are
+  # listed here, so the network name and password live only on the Pi, in
+  # /etc/wpa_supplicant/imperative.conf, and never reach this public repo.
+  networking.wireless.enable = true;
+  # The wpa_supplicant module makes that file world-readable (664) on every
+  # start; tighten it straight after, since it holds the Wi-Fi password.
+  systemd.services.wpa_supplicant.serviceConfig.ExecStartPre = lib.mkAfter [
+    "+${pkgs.coreutils}/bin/chmod 660 /etc/wpa_supplicant/imperative.conf"
+  ];
 
   networking.nftables.enable = true;
   networking.firewall.extraInputRules = ''
