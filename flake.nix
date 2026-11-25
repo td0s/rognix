@@ -4,6 +4,10 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
 
+    # Newer nixos-26.05 just for Tailscale (security fixes, TS-2026-010..017),
+    # without moving the rest of rognix. Drop once nixpkgs above is bumped.
+    nixpkgs-tailscale.url = "github:NixOS/nixpkgs/nixos-26.05";
+
     # Raspberry Pi support. Don't make its nixpkgs follow ours: its binary
     # cache (prebuilt Pi kernels) only matches its own nixpkgs.
     nixos-raspberrypi.url = "github:nvmd/nixos-raspberrypi/main";
@@ -13,10 +17,11 @@
   };
 
   outputs =
-    inputs@{ self, nixpkgs, nixos-raspberrypi, pi-lite-eq, ... }:
+    inputs@{ self, nixpkgs, nixpkgs-tailscale, nixos-raspberrypi, pi-lite-eq, ... }:
     {
       nixosConfigurations.rognix = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
+        specialArgs = { inherit nixpkgs-tailscale; };
         modules = [ ./hosts/rognix/configuration.nix ];
       };
 
