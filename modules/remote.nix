@@ -1,7 +1,10 @@
-{ ... }:
+{ pkgs, nixpkgs-tailscale, ... }:
 {
   # Out-of-band access when Remote Control is down. Run `sudo tailscale up` once after install.
   services.tailscale.enable = true;
+  # Tailscale from a newer nixos-26.05 than the rest of the system (see flake.nix).
+  services.tailscale.package =
+    nixpkgs-tailscale.legacyPackages.${pkgs.stdenv.hostPlatform.system}.tailscale;
 
   services.openssh = {
     enable = true;
