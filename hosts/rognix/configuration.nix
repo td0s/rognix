@@ -8,6 +8,7 @@
     ../../modules/gpu-off.nix
     ../../modules/remote.nix
     ../../modules/claude.nix
+    ../../modules/pi-builder.nix
   ];
 
   networking.hostName = "rognix";
