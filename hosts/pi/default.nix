@@ -61,7 +61,10 @@ in
   users.users.tobias = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
-    openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOmICF//KAuQ+UXOzcSyMDhSi0J+gM++JEmdXlNExTzB" ];
+    openssh.authorizedKeys.keys = [
+      # slacklap (td0s GitHub key, ECDSA, SHA256:N/R4F0VU...)
+      "ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1MjEAAACFBACbVTOq5l/wwIpGLt3WbRn+L0xsEBKl3rFpEzDYTyB92/7kO0jimhI15m6fZEDySOreB3N84p33XxglWWPwrx2AtAGVKXexoZDcxc1gV+6hWnO0xXmF44juXfjV0HSzHVxxw7WSPaK7NYjVaPZvhwcS6lJUwHNabmilr3nlJzV8UK5xTg== slacklap"
+    ];
   };
   security.sudo.wheelNeedsPassword = false;
 
